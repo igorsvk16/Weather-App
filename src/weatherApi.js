@@ -1,3 +1,5 @@
+import { parseWeatherData  } from "./weatherParser.js";
+
 const API_KEY = "5H7WX8T7S7HP5NMQVG2DXXA2S";
 const BASE_URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
@@ -17,7 +19,9 @@ export async function fetchWeather(location) {
     const data = await res.json();
 
     console.log("RAW weather data:", data);
-    console.log("currentConditions:", data.currentConditions);
 
-    return data;
+    const parsed = parseWeatherData(data);
+    console.log("parseWeatherData:", parsed);
+
+    return parsed;
 }

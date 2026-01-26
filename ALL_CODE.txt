@@ -1,0 +1,78 @@
+===== FILE: src/index.js =====
+NAME: index.js
+----- BEGIN CONTENT -----
+import { fetchWeather } from "./weatherApi.js";
+
+fetchWeather("Helsinki").catch(console.error);
+----- END CONTENT -----
+
+===== FILE: src/styles.css =====
+NAME: styles.css
+----- BEGIN CONTENT -----
+
+----- END CONTENT -----
+
+===== FILE: src/template.html =====
+NAME: template.html
+----- BEGIN CONTENT -----
+
+----- END CONTENT -----
+
+===== FILE: src/weatherApi.js =====
+NAME: weatherApi.js
+----- BEGIN CONTENT -----
+import { parseWeatherData  } from "./weatherParser.js";
+
+const API_KEY = "5H7WX8T7S7HP5NMQVG2DXXA2S";
+const BASE_URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
+
+export async function fetchWeather(location) {
+    const loc = location.trim();
+    if (!loc) throw new Error("Empty location");
+
+    const url = `${BASE_URL}/${encodeURIComponent(loc)}` + `?unitGroup=metric&include=current&contentType=json&key=${API_KEY}`;
+
+    const res = await fetch(url, { mode: "cors" });
+
+    if (!res.ok) {
+        const errorText = await res.text().catch(() => "");
+        throw new Error(`Weather API error ${res.status}: ${errorText}`);
+    }
+
+    const data = await res.json();
+
+    console.log("RAW weather data:", data);
+
+    const parsed = parseWeatherData(data);
+    console.log("parseWeatherData:", parsed);
+
+    return parsed;
+}
+----- END CONTENT -----
+
+===== FILE: src/weatherParser.js =====
+NAME: weatherParser.js
+----- BEGIN CONTENT -----
+export function parseWeatherData(data) {
+    
+    const cc = data?.currentConditions ?? {};
+    const today = Array.isArray(data?.days) ? data.days[0] : {};
+
+    return {
+        resolvedAddress: data?.resolvedAddress ?? data?.address ?? "Unknown",
+        timezone: data?.timezone ?? null,
+
+        temp: cc?.temp ?? null,
+        feelslike: cc?.feelsLike ?? null,
+        humidity: cc?.humidity ?? null,
+        windSpeed: cc?.windspeed ?? null,
+        conditions: cc?.conditions ?? null,
+        icon: cc?.icon ?? null,
+        datetime: cc?.datetime ?? null,
+
+        tempMax: today?.tempmax ?? null,
+        tempMin: today?.tempmin ?? null,
+    };
+}
+----- END CONTENT -----
+
