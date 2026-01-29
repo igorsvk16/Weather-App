@@ -1,8 +1,8 @@
 export default function renderWeather(weatherData) {
 
     let today = document.getElementById("today-temperature");
-    let tomorrow = document.getElementById("tomorrow-temperature");
+    let description = document.getElementById("description");
 
     today.innerHTML = weatherData.currentConditions.temp;
-    tomorrow.innerHTML = weatherData.currentConditions.temp;
+    description.innerHTML = weatherData.currentConditions.conditions;
 }
