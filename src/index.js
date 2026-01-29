@@ -1,10 +1,12 @@
 import getData from "./weatherAPI.js";
+import renderWeather from "./renderWeather.js";
 
 
 const form = document.getElementById("location-form");
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const inp = document.getElementById('location-input').value.trim();
-    getData(inp);
+    const weatherData = await getData(inp);
+    renderWeather(weatherData);
 })

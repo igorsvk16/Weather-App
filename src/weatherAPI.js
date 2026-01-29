@@ -8,8 +8,9 @@ export default async function getData(location) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-        const result = await response.json();
-        console.log(result.currentConditions.temp);
+        const data = await response.json();
+        return data;
+
     } catch (error) {
         console.log(error.message)
     }
