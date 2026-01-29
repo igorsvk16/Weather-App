@@ -1,7 +1,7 @@
 const API_KEY = "5H7WX8T7S7HP5NMQVG2DXXA2S";
 
 export default async function getData(location) {
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}/?key=${API_KEY}`;
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?key=${API_KEY}&unitGroup=metric`;
     try {
         const response = await fetch(url);
 
@@ -9,9 +9,8 @@ export default async function getData(location) {
             throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        console.log(result);
+        console.log(result.currentConditions.temp);
     } catch (error) {
         console.log(error.message)
     }
 }
-
