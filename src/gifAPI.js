@@ -11,9 +11,14 @@ export default async function getGif(description) {
         }
         const receivedGif = await response.json();
 
-        const gifPlace = document.createElement("img");
+        let gifPlace = document.getElementById("gif");
+        if (!gifPlace) {
+            gifPlace = document.createElement("img");
+            gifPlace.id = "gif";
+            document.body.appendChild(gifPlace);
+        } 
         gifPlace.src = receivedGif.data.images.original.url;
-        document.body.appendChild(gifPlace);
+        
 
     } catch (error) {
         console.log(error.message)
