@@ -7,17 +7,25 @@
     <script type="module" src="./index.js"></script>
 </head>
 <body>
+    <div id="loader" style="display:none">Please wait...   🕐🕐🕐</div>
     <form id="location-form">
         <div>
             <label for="location-input">Where you want to check weather</label>
             <input id="location-input" type="text" name="text" />
         </div>
+        <div class="loader"></div>
         <div>
             <input type="submit" value="Send" />
         </div>
-        <div id="today-temperature">
-        </div>
-        <div id="description"></div>
     </form>
+    <div id="today-temperature">
+        <p>Temperature today: </p>
+        <div id="today-temperature-show"></div>
+    </div>
+        <div id="description">
+            <p>Description: </p>
+            <p id="description-show"></p>
+        </div>
+    <div id="gif-container"></div>
 </body>
 </html>
