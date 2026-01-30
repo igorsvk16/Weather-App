@@ -4,7 +4,7 @@ const API_KEY = "llHrgv7dzNEjR6AtdD9f3QcItbvZKSyY";
 export default async function getGif(description) {
     const url = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${encodeURIComponent(description)}`;
     try {
-        document.getElementById('loader').style.display = 'block';
+        document.querySelector(".loader").style.display = "block";
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -18,7 +18,7 @@ export default async function getGif(description) {
             gifPlace.id = "gif";
             document.body.appendChild(gifPlace);
         }
-        document.getElementById('loader').style.display = 'none';
+        document.querySelector(".loader").style.display = "none";
 
         gifPlace.src = receivedGif.data.images.original.url;
         

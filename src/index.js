@@ -1,6 +1,8 @@
 import getData from "./weatherAPI.js";
 import renderWeather from "./renderWeather.js";
 import getGif from "./gifAPI.js";
+import "./styles.css";
+
 
 const form = document.getElementById("location-form");
 
